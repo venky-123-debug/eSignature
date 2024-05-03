@@ -8,7 +8,7 @@
     "start": "ws",
     "build-cp": "npx rollup -c && sudo cp -r public/* /var/www/html/ ",
     "cp": "sudo cp -r public/* /var/www/html/ ",
-    "push": "npm run build && scp -i ~/.ssh/id_rsa -r public/build/* ubuntu@13.233.9.12:test/public/karthick/build/"
+    "deploy": "npm run build && gh-pages -d public"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",

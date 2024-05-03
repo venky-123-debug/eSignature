@@ -71,11 +71,11 @@
   }
 </script>
 
-<div class="flex min-h-screen w-screen flex-col items-center justify-center gap-3 overflow-hidden">
+<div class="flex min-h-screen w-screen flex-col items-center bg-gradient-to-r from-teal-400 to-gray-800 justify-center gap-3 overflow-hidden">
   <!-- svelte-ignore a11y-mouse-events-have-key-events -->
   <canvas on:mousedown={startDrawing} on:mousemove={draw} on:mouseup={stopDrawing} on:mouseout={stopDrawing} on:touchstart={startDrawingTouch} on:touchmoveh={drawTouch} on:touchend={drawTouch} bind:this={canvas} width="400" height="200" class="border cursor-pointer border-gray-500 bg-white rounded-md" />
   <div class="flex items-center justify-center gap-3">
-    <button disabled={!isDrawing} on:click={clearCanvas} type="button" id="clearBtn" class="flex min-w-[36px] items-center justify-center rounded-md bg-red-500 px-3 py-1.5 text-sm text-white hover:bg-red-600 active:bg-red-500 disabled:cursor-not-allowed">Clear</button>
+    <button on:click={clearCanvas} type="button" id="clearBtn" class="flex min-w-[36px] items-center justify-center rounded-md bg-red-500 px-3 py-1.5 text-sm text-white hover:bg-red-600 active:bg-red-500 disabled:cursor-not-allowed">Clear</button>
     <button on:click={downloadSignature} type="button" id="downloadBtn" class="flex min-w-[36px] items-center justify-center rounded-md bg-blue-500 px-3 py-1.5 text-sm text-white hover:bg-blue-600 active:bg-blue-500">Download Signature</button>
   </div>
 </div>
