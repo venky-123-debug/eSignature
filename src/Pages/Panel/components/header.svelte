@@ -5,7 +5,7 @@
         <div class="flex-shrink-0">
           <img class="h-14 w-full" src="assets/logo.png" alt="logo" />
         </div>
-        <div class="text-3xl pr-14 font-semibold text-gray-500">Signature Panel</div>
+        <div class="text-3xl pr-14 font-semibold text-gray-500">E-Signature Panel</div>
       </div>
     </div>
   </div>

@@ -1,11 +1,11 @@
 <script>
   import { onMount } from "svelte"
-    import Header from "./components/header.svelte"
+  import Header from "./components/header.svelte"
 
   let canvas
   let ctx
   let isDrawing = false
-  let selectedColor = ""
+  let signatureDrawn = false // Track if signature has been drawn
 
   onMount(() => {
     try {
@@ -33,6 +33,8 @@
     ctx.stroke()
     ctx.beginPath()
     ctx.moveTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop)
+
+    signatureDrawn = true // Set signature drawn to true
   }
 
   const startDrawingTouch = (e) => {
@@ -51,6 +53,8 @@
     ctx.stroke()
     ctx.beginPath()
     ctx.moveTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop)
+
+    signatureDrawn = true // Set signature drawn to true
   }
 
   const stopDrawing = () => {
@@ -60,6 +64,7 @@
 
   const clearCanvas = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
+    signatureDrawn = false // Reset signature drawn
   }
 
   const downloadSignature = () => {
@@ -78,7 +83,7 @@
   <!-- svelte-ignore a11y-mouse-events-have-key-events -->
   <canvas on:mousedown={startDrawing} on:mousemove={draw} on:mouseup={stopDrawing} on:mouseout={stopDrawing} on:touchstart={startDrawingTouch} on:touchmoveh={drawTouch} on:touchend={drawTouch} bind:this={canvas} width="400" height="200" class="border cursor-pointer border-gray-500 bg-white rounded-md" />
   <div class="flex items-center justify-center gap-3">
-    <button on:click={clearCanvas} type="button" id="clearBtn" class="flex min-w-[36px] items-center justify-center rounded-md bg-red-500 px-3 py-1.5 text-sm text-white hover:bg-red-600 active:bg-red-500 disabled:cursor-not-allowed">Clear</button>
-    <button on:click={downloadSignature} type="button" id="downloadBtn" class="flex min-w-[36px] items-center justify-center rounded-md bg-blue-500 px-3 py-1.5 text-sm text-white hover:bg-blue-600 active:bg-blue-500">Download Signature</button>
+    <button on:click={clearCanvas} type="button" class="flex min-w-[36px] items-center justify-center rounded-md bg-red-500 px-3 py-1.5 text-sm text-white hover:bg-red-600 active:bg-red-500 disabled:cursor-not-allowed" disabled={!signatureDrawn}>Clear</button>
+    <button on:click={downloadSignature} type="button" class="flex min-w-[36px] items-center justify-center rounded-md bg-blue-500 px-3 py-1.5 text-sm text-white hover:bg-blue-600 active:bg-blue-500 disabled:cursor-not-allowed" disabled={!signatureDrawn}>Download Signature</button>
   </div>
 </div>
