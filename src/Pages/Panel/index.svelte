@@ -1,9 +1,11 @@
 <script>
   import { onMount } from "svelte"
+    import Header from "./components/header.svelte"
 
   let canvas
   let ctx
   let isDrawing = false
+  let selectedColor = ""
 
   onMount(() => {
     try {
@@ -71,7 +73,8 @@
   }
 </script>
 
-<div class="flex min-h-screen w-screen flex-col items-center bg-gradient-to-r from-teal-400 to-gray-800 justify-center gap-3 overflow-hidden">
+<div class="flex min-h-screen relative w-screen flex-col items-center bg-gradient-to-r from-gray-700 to-gray-900 justify-center gap-3 overflow-hidden">
+  <Header />
   <!-- svelte-ignore a11y-mouse-events-have-key-events -->
   <canvas on:mousedown={startDrawing} on:mousemove={draw} on:mouseup={stopDrawing} on:mouseout={stopDrawing} on:touchstart={startDrawingTouch} on:touchmoveh={drawTouch} on:touchend={drawTouch} bind:this={canvas} width="400" height="200" class="border cursor-pointer border-gray-500 bg-white rounded-md" />
   <div class="flex items-center justify-center gap-3">
