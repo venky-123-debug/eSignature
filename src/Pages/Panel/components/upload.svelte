@@ -3,7 +3,6 @@
   let pdfData = ""
   let numPages = 0
   let currentPage = 1
-  // let maxPages = 0
   let showPdf = false
   let canvas
   let pdfInput
@@ -78,23 +77,37 @@
     }
   }
 
+  const removePdf = () => {
+    try {
+      pdfInput = ""
+      showPdf = false
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   $: {
     console.log(currentPage)
   }
 </script>
 
 {#if showPdf}
-  <canvas bind:this={canvas} id="pdfCanvas" class="max-w-3/5 mt-20 aspect-auto max-h-[500px] min-h-[450px] min-w-fit" />
+  <div class="relative mt-20">
+    <canvas bind:this={canvas} id="pdfCanvas" class="aspect-auto max-h-[500px] min-h-[450px] min-w-fit rounded-md" />
+    <button on:click={removePdf} type="button" class="absolute right-3 top-3 z-50">
+      <i class="fa-solid fa-circle-xmark text-lg text-red-600" />
+    </button>
+  </div>
 
   <div class="flex items-center gap-3">
-    <button type="button" disabled={currentPage == 1} class="flex h-8 w-8 items-center justify-center rounded-full border border-white text-white disabled:cursor-not-allowed" on:click={prevPage}><i class="fa-solid fa-chevron-left" /></button>
+    <button type="button" class:hidden={currentPage == 1} class="flex h-8 w-8 items-center justify-center rounded-full border border-white text-white disabled:cursor-not-allowed" on:click={prevPage}><i class="fa-solid fa-chevron-left" /></button>
     <span class="text-base font-semibold text-white">
       <span class="w-9 min-w-[20px]">{currentPage}</span>
       /
       <span class="w-9 min-w-[20px]">{numPages}</span>
     </span>
 
-    <button disabled={currentPage == numPages} type="button" class="flex h-8 w-8 items-center justify-center rounded-full border border-white text-white disabled:cursor-not-allowed" on:click={nextPage}><i class="fa-solid fa-chevron-right" /></button>
+    <button class:hidden={currentPage == numPages} type="button" class="flex h-8 w-8 items-center justify-center rounded-full border border-white text-white disabled:cursor-not-allowed" on:click={nextPage}><i class="fa-solid fa-chevron-right" /></button>
   </div>
 {:else}
   <div class="relative w-3/5 rounded-md border border-dashed border-gray-700 shadow-2xl hover:border-white">
