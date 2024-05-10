@@ -1,6 +1,7 @@
 import svelte from "rollup-plugin-svelte"
 import commonjs from "@rollup/plugin-commonjs"
-import { nodeResolve } from "@rollup/plugin-node-resolve"
+// import { nodeResolve } from "@rollup/plugin-node-resolve"
+import resolve from "@rollup/plugin-node-resolve"
 import livereload from "rollup-plugin-livereload"
 import { terser } from "rollup-plugin-terser"
 import css from "rollup-plugin-css-only"
@@ -32,7 +33,7 @@ function serve() {
 export default {
   input: "src/main.js",
   output: {
-    sourcemap: false,
+    sourcemap: true,
     format: "iife",
     name: "app",
     file: "public/build/bundle.js",
@@ -67,7 +68,13 @@ export default {
     //   browser: true,
     //   dedupe: ["svelte"],
     // }),
-    nodeResolve(),
+    resolve({
+      browser: true,
+      exportConditions: ["svelte"],
+      // extensions: ['.svelte'],
+      dedupe: ["svelte"],
+    }),
+    // nodeResolve(),
     commonjs(),
 
     // In dev mode, call `npm run start` once
