@@ -90,4 +90,4 @@
   <Upload bind:pdf bind:showPdf />
 </div>
 
-<SignaturePanel on:mousedown={startDrawing} on:mousemove={draw} on:mouseup={stopDrawing} on:mouseout={stopDrawing} on:touchstart={startDrawingTouch} on:touchmove={drawTouch} on:touchend={drawTouch} bind:canvas bind:signatureDrawn bind:showSignPanel on:click={clearCanvas} on:downloadSignature={downloadSignature} on:close={() => (showSignPanel = false)} />
+<SignaturePanel on:mousedown={startDrawing} on:mousemove={draw} on:mouseup={stopDrawing} on:mouseout={stopDrawing} on:touchstart={startDrawingTouch} on:touchmove={drawTouch} on:touchend={drawTouch} bind:canvas bind:signatureDrawn bind:showSignPanel on:click={clearCanvas} on:downloadSignature={downloadSignature} on:close={() => (showSignPanel = false)} on:ok/>

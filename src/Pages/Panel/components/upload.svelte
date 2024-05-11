@@ -28,7 +28,7 @@
     }
   }
 
-  async function displayPDF(data) {
+  const displayPDF = async (data) => {
     if (!document.getElementById("pdfjs")) {
       await loadJs("pdfjs", "lib/pdf.min.js")
     }
@@ -48,7 +48,7 @@
     renderPage(pdf, context, 1)
   }
 
-  async function renderPage(pdf, context, pageNumber) {
+  const renderPage = async (pdf, context, pageNumber) => {
     const page = await pdf.getPage(pageNumber)
 
     const viewport = page.getViewport({ scale: 1.5 })
@@ -63,14 +63,14 @@
     await page.render(renderContext)
   }
 
-  function nextPage() {
+  const nextPage = () => {
     if (currentPage < numPages) {
       currentPage++
       renderPage(pdf, canvas.getContext("2d"), currentPage)
     }
   }
 
-  function prevPage() {
+  const prevPage = () => {
     if (currentPage > 1) {
       currentPage--
       renderPage(pdf, canvas.getContext("2d"), currentPage)
@@ -96,17 +96,17 @@
   </div>
 
   <div class="flex items-center gap-3">
-    <button type="button" class:hidden={currentPage == 1} class="flex h-8 w-8 items-center justify-center rounded-full border border-white text-white disabled:cursor-not-allowed" on:click={prevPage}><i class="fa-solid fa-chevron-left" /></button>
-    <span class="text-base font-semibold text-white">
-      <span class="w-9 min-w-[20px]">{currentPage}</span>
+    <button type="button" disabled={currentPage == 1} class="flex h-8 w-8 items-center justify-center rounded-full border border-white text-white disabled:cursor-not-allowed disabled:opacity-20" on:click={prevPage}><i class="fa-solid fa-chevron-left" /></button>
+    <span class="flex items-center text-base font-semibold text-white">
+      <span class="flex h-9 w-9 min-w-[20px] items-center justify-center">{currentPage}</span>
       /
-      <span class="w-9 min-w-[20px]">{numPages}</span>
+      <span class="flex h-9 w-9 min-w-[20px] items-center justify-center">{numPages}</span>
     </span>
 
-    <button class:hidden={currentPage == numPages} type="button" class="flex h-8 w-8 items-center justify-center rounded-full border border-white text-white disabled:cursor-not-allowed" on:click={nextPage}><i class="fa-solid fa-chevron-right" /></button>
+    <button disabled={currentPage == numPages} type="button" class="flex h-8 w-8 items-center justify-center rounded-full border border-white text-white disabled:cursor-not-allowed disabled:opacity-20" on:click={nextPage}><i class="fa-solid fa-chevron-right" /></button>
   </div>
 {:else}
-  <div class="relative w-3/5 rounded-md border border-dashed border-gray-700 shadow-2xl hover:border-white">
+  <div class="inputPanel relative w-3/5 rounded-md border border-dashed border-gray-700 shadow-2xl hover:border-gray-500 hover:shadow-3xl">
     <div class="mt-2 flex justify-center px-6 py-10">
       <div class="text-center text-white">
         <i class="fas fa-file-pdf text-3xl" />
