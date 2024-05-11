@@ -1,12 +1,12 @@
 <script>
   import { loadJs } from "../../../scripts/loadLibrary"
+  export let pdf
+  export let showPdf = false
   let pdfData = ""
   let numPages = 0
   let currentPage = 1
-  let showPdf = false
   let canvas
   let pdfInput
-  let pdf
 
   const handleFileUpload = () => {
     try {
@@ -85,16 +85,12 @@
       console.error(error)
     }
   }
-
-  $: {
-    console.log(currentPage)
-  }
 </script>
 
 {#if showPdf}
   <div class="relative mt-20">
     <canvas bind:this={canvas} id="pdfCanvas" class="aspect-auto max-h-[500px] min-h-[450px] min-w-fit rounded-md" />
-    <button on:click={removePdf} type="button" class="absolute right-3 top-3 z-50">
+    <button on:click={removePdf} type="button" class="absolute right-3 top-3 z-10">
       <i class="fa-solid fa-circle-xmark text-lg text-red-600" />
     </button>
   </div>

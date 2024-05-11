@@ -1,12 +1,17 @@
 <script>
   import { onMount } from "svelte"
   import Header from "./components/header.svelte"
-    import Upload from "./components/upload.svelte"
+  import Upload from "./components/upload.svelte"
+  import TopSubNav from "./components/topSubNav.svelte"
+  import SignaturePanel from "./components/signaturePanel.svelte"
 
   let canvas
   let ctx
   let isDrawing = false
-  let signatureDrawn = false // Track if signature has been drawn
+  let signatureDrawn = false
+  let showSignPanel = false
+  let pdf
+  let showPdf = false
 
   onMount(() => {
     try {
@@ -79,13 +84,10 @@
   }
 </script>
 
-<div class="flex min-h-screen  relative w-screen flex-col items-center bg-gradient-to-r from-gray-700 to-gray-900 justify-center gap-3 overflow-hidden">
+<div class="relative flex min-h-screen w-screen flex-col items-center justify-center gap-3 overflow-hidden bg-gradient-to-r from-gray-700 to-gray-900">
   <Header />
-  <!-- svelte-ignore a11y-mouse-events-have-key-events -->
-  <!-- <canvas on:mousedown={startDrawing} on:mousemove={draw} on:mouseup={stopDrawing} on:mouseout={stopDrawing} on:touchstart={startDrawingTouch} on:touchmoveh={drawTouch} on:touchend={drawTouch} bind:this={canvas} width="400" height="200" class="border cursor-pointer border-gray-500 bg-white rounded-md" />
-  <div class="flex items-center justify-center gap-3">
-    <button on:click={clearCanvas} type="button" class="flex min-w-[36px] items-center justify-center rounded-md bg-red-500 px-3 py-1.5 text-sm text-white hover:bg-red-600 active:bg-red-500 disabled:cursor-not-allowed" disabled={!signatureDrawn}>Clear</button>
-    <button on:click={downloadSignature} type="button" class="flex min-w-[36px] items-center justify-center rounded-md bg-blue-500 px-3 py-1.5 text-sm text-white hover:bg-blue-600 active:bg-blue-500 disabled:cursor-not-allowed" disabled={!signatureDrawn}>Download Signature</button>
-  </div> -->
-  <Upload />
+  <TopSubNav on:click={() => (showSignPanel = true)} bind:showPdf />
+  <Upload bind:pdf bind:showPdf />
 </div>
+
+<SignaturePanel on:mousedown={startDrawing} on:mousemove={draw} on:mouseup={stopDrawing} on:mouseout={stopDrawing} on:touchstart={startDrawingTouch} on:touchmove={drawTouch} on:touchend={drawTouch} bind:canvas bind:signatureDrawn bind:showSignPanel on:click={clearCanvas} on:downloadSignature={downloadSignature} on:close={() => (showSignPanel = false)} />
