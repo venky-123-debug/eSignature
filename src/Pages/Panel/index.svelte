@@ -3,7 +3,7 @@
   import Header from "./components/header.svelte"
   import Upload from "./components/upload.svelte"
   import TopSubNav from "./components/topSubNav.svelte"
-  import SignaturePanel from "./components/signaturePanel.svelte"
+  import SignaturePanel from "./shared/signaturePanel.svelte"
 
   let canvas
   let ctx
